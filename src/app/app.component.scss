@@ -1,0 +1,19 @@
+.board {
+    width: 300px;
+    border: 1px solid lightgray;
+    display: flex;
+    flex-wrap: wrap;
+    .cell {
+        padding: 10px;
+        cursor: pointer;
+        text-align: center;
+        &.selected {
+            background: lightsteelblue;
+        }
+        &.cleared {
+            cursor: default;
+            pointer-events: none;
+            padding: 0;
+        }
+    }
+}
