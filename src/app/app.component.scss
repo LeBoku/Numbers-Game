@@ -1,19 +1,31 @@
 .board {
-    width: 300px;
     border: 1px solid lightgray;
     display: flex;
     flex-wrap: wrap;
+    margin: auto;
     .cell {
         padding: 10px;
         cursor: pointer;
         text-align: center;
+        height: 40px;
+        width: 40px;
         &.selected {
             background: lightsteelblue;
         }
         &.cleared {
             cursor: default;
             pointer-events: none;
+            height: 0px;
             padding: 0;
+        }
+        &.cleared-column {
+            padding: 0;
+            width: 5px;
+            flex: 0 0 0px;
+            background-color: red;
+        }
+        &.hint {
+            background: lightyellow;
         }
     }
 }

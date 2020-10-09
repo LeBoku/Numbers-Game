@@ -1,8 +1,10 @@
 <div class="header">
     <button [disabled]="!history.canGoBack" (click)="history.undo(board)">Undo</button>
     <button [disabled]="!history.canGoForward" (click)="history.redo(board)">Redo</button>
-    <label> {{possibleCombinationsCount}} {{getPossibleCombinations()}}</label>
+    <button (click)="showHint()">Hint</button>
+    <button (click)="fill()">Fill</button>
+    <label> {{possibleCombinationsCount}}</label>
 </div>
-<div class="board">
-    <div *ngFor="let number of board; let index = index" class="cell" (click)="onCellClick(index)" [style.width.%]="100 / boardWidth" [class.selected]="index == selectedIndex" [class.cleared]="number === null">{{number}}</div>
+<div class="board" [style.width.px]="40 * (columnCount - clearedColumns.length) + 2">
+    <div *ngFor="let number of board; let index = index" class="cell" (click)="onCellClick(index)" [class.selected]="index == selectedIndex" [class.cleared]="number === null" [class.hint]="hint.includes(index)" [class.cleared-column]="clearedColumns.includes(index % initalColumnCount)">{{number}}</div>
 </div>
