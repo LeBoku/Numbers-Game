@@ -1,6 +1,6 @@
 <div class="header">
-    <button [disabled]="!history.canGoBack" (click)="history.undo(board)">Undo</button>
-    <button [disabled]="!history.canGoForward" (click)="history.redo(board)">Redo</button>
+    <button [disabled]="!history.canGoBack" (click)="history.undo(board); updatedClearedColumns()">Undo</button>
+    <button [disabled]="!history.canGoForward" (click)="history.redo(board); updatedClearedColumns()">Redo</button>
     <button (click)="showHint()">Hint</button>
     <button (click)="fill()">Fill</button>
     <label> {{possibleCombinationsCount}}</label>

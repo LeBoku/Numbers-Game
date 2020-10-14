@@ -69,6 +69,11 @@ export class AppComponent implements OnInit {
 		}, []);
 	}
 
+	updatedClearedColumns() {
+		this.clearedColumns = _.range(this.initalColumnCount)
+			.filter(column => _.range(column, this.board.length, this.initalColumnCount).every(cellIndex => this.board[cellIndex] === null));
+	}
+
 	private cellsMatch(firstIndex: number, secondIndex: number) {
 		return this.cellsAdjacent(firstIndex, secondIndex)
 			&& this.numbersMatch(this.board[firstIndex], this.board[secondIndex]);
@@ -134,15 +139,5 @@ export class AppComponent implements OnInit {
 			return values;
 		});
 		this.board.push(..._.flatten(numbers));
-	}
-
-	private updatedClearedColumns() {
-		_.range(this.initalColumnCount)
-			.filter(x => !this.clearedColumns.includes(x))
-			.forEach(column => {
-				if (_.range(column, this.board.length, this.initalColumnCount).every(cellIndex => this.board[cellIndex] === null)) {
-					this.clearedColumns.push(column);
-				}
-			});
 	}
 }
