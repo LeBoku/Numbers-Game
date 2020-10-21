@@ -1,6 +1,24 @@
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    overflow: auto;
+}
+
+.header {
+    flex: 0 0 auto;
+    margin-bottom: 5px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+
 .board {
     border: 1px solid lightgray;
     display: flex;
+    flex: 0 0 auto;
+    min-height: 0px;
     flex-wrap: wrap;
     margin: auto;
     .cell {
