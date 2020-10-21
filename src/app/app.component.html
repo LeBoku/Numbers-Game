@@ -8,3 +8,6 @@
 <div class="board" [style.width.px]="40 * (columnCount - clearedColumns.length) + 2">
     <div *ngFor="let number of board; let index = index" class="cell" (click)="onCellClick(index)" [class.selected]="index == selectedIndex" [class.cleared]="number === null" [class.hint]="hint.includes(index)" [class.cleared-column]="clearedColumns.includes(index % initalColumnCount)">{{number}}</div>
 </div>
+<div class="stats">
+    <div *ngFor="let number of numbers" class="number">{{number}}: {{board | numberOf: number}}</div>
+</div>
