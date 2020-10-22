@@ -1,0 +1,80 @@
+{
+  "configVersion": 1,
+  "timestamp": 1603399855961,
+  "index": "https://leboku.github.io/numbers-game/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://leboku.github.io/numbers-game/favicon.ico",
+        "https://leboku.github.io/numbers-game/index.html",
+        "https://leboku.github.io/numbers-game/main-es2015.bffbb6b247b058a17ad5.js",
+        "https://leboku.github.io/numbers-game/main-es5.bffbb6b247b058a17ad5.js",
+        "https://leboku.github.io/numbers-game/manifest.webmanifest",
+        "https://leboku.github.io/numbers-game/polyfills-es2015.1f913f16a2d346cc8bdc.js",
+        "https://leboku.github.io/numbers-game/polyfills-es5.1a3c78b07cd6f16c6e9a.js",
+        "https://leboku.github.io/numbers-game/runtime-es2015.0811dcefd377500b5b1a.js",
+        "https://leboku.github.io/numbers-game/runtime-es5.0811dcefd377500b5b1a.js",
+        "https://leboku.github.io/numbers-game/styles.1747b919f8b1776c7f20.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://leboku.github.io/numbers-game/assets/icons/icon-128x128.png",
+        "https://leboku.github.io/numbers-game/assets/icons/icon-144x144.png",
+        "https://leboku.github.io/numbers-game/assets/icons/icon-152x152.png",
+        "https://leboku.github.io/numbers-game/assets/icons/icon-192x192.png",
+        "https://leboku.github.io/numbers-game/assets/icons/icon-384x384.png",
+        "https://leboku.github.io/numbers-game/assets/icons/icon-512x512.png",
+        "https://leboku.github.io/numbers-game/assets/icons/icon-72x72.png",
+        "https://leboku.github.io/numbers-game/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "https://leboku.github.io/numbers-game/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "https://leboku.github.io/numbers-game/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "https://leboku.github.io/numbers-game/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "https://leboku.github.io/numbers-game/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "https://leboku.github.io/numbers-game/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "https://leboku.github.io/numbers-game/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "https://leboku.github.io/numbers-game/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "https://leboku.github.io/numbers-game/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "https://leboku.github.io/numbers-game/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "https://leboku.github.io/numbers-game/index.html": "58d2071d09a0d9ddce112272a57fb55a3bead14d",
+    "https://leboku.github.io/numbers-game/main-es2015.bffbb6b247b058a17ad5.js": "64a78c684b9aa66c89759b7cb529883a5fd96c81",
+    "https://leboku.github.io/numbers-game/main-es5.bffbb6b247b058a17ad5.js": "df7f47e9e1bd77ed7d38d2b4ff5e6feb743357e5",
+    "https://leboku.github.io/numbers-game/manifest.webmanifest": "592ab5fa485a610d04fd653c4fd1ac6fd40541ae",
+    "https://leboku.github.io/numbers-game/polyfills-es2015.1f913f16a2d346cc8bdc.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
+    "https://leboku.github.io/numbers-game/polyfills-es5.1a3c78b07cd6f16c6e9a.js": "4c46a59a04fcad729e7b2431f01c09b3d92070c4",
+    "https://leboku.github.io/numbers-game/runtime-es2015.0811dcefd377500b5b1a.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "https://leboku.github.io/numbers-game/runtime-es5.0811dcefd377500b5b1a.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "https://leboku.github.io/numbers-game/styles.1747b919f8b1776c7f20.css": "86a5219cef6fdcd8a102e6d0320b8cdf92175d23"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
