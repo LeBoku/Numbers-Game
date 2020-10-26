@@ -1,13 +1,12 @@
 <div class="header">
-    <button [disabled]="!history.canGoBack" (click)="history.undo(board); updatedClearedColumns()">Undo</button>
-    <button [disabled]="!history.canGoForward" (click)="history.redo(board); updatedClearedColumns()">Redo</button>
-    <button (click)="showHint()">Hint</button>
-    <button (click)="fill()">Fill</button>
-    <label> {{possibleCombinationsCount}}</label>
+	<button [disabled]="!history.canGoBack" (click)="undo()">Undo</button>
+	<button [disabled]="!history.canGoForward" (click)="redo()">Redo</button>
+	<button (click)="showHint()">Hint</button>
+	<button (click)="fill()">Fill</button>
+	<label> {{possibleCombinationsCount}}</label>
 </div>
 <div class="board" [style.width.px]="40 * (columnCount - clearedColumns.length) + 2">
-    <div *ngFor="let number of board; let index = index" class="cell" (click)="onCellClick(index)" [class.selected]="index == selectedIndex" [class.cleared]="number === null" [class.hint]="hint.includes(index)" [class.cleared-column]="clearedColumns.includes(index % initalColumnCount)">{{number}}</div>
-</div>
-<div class="stats">
-    <div *ngFor="let number of numbers" class="number">{{number}}: {{board | numberOf: number}}</div>
+	<div *ngFor="let number of board; let index = index" class="cell" (click)="onCellClick(index)"
+		[class.selected]="index == selectedIndex" [class.cleared]="number === null" [class.hint]="hint.includes(index)"
+		[class.cleared-column]="clearedColumns.includes(index % initalColumnCount)">{{number}}</div>
 </div>

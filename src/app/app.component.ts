@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import { Board } from './models/board';
 import { BoardHistory, HistoryEntry } from './models/history';
 
 @Component({
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
 	columnCount = this.initalColumnCount;
 	history = new BoardHistory();
 
-	board: Array<number> = [];
+	board: Board = [];
 	selectedIndex: number = null;
 
 	hint: Array<number> = [];
@@ -52,7 +53,23 @@ export class AppComponent implements OnInit {
 		this.hint = _.sample(this.getPossibleCombinations()) ?? [];
 	}
 
-	getPossibleCombinations() {
+	onBoardChanged() {
+		this.clearedColumns = _.range(this.initalColumnCount)
+			.filter(column => _.range(column, this.board.length, this.initalColumnCount).every(cellIndex => this.board[cellIndex] === null));
+
+	}
+
+	undo() {
+		this.board = this.history.undo(this.board);
+		this.onBoardChanged();
+	}
+
+	redo() {
+		this.board = this.history.redo(this.board);
+		this.onBoardChanged();
+	}
+
+	private getPossibleCombinations() {
 		return this.board.reduce((combinations, value, index) => {
 			let nextHorizotal = this.getNextHorizontalCell(index);
 			let nextVertical = this.getNextVerticalCell(index);
@@ -67,11 +84,6 @@ export class AppComponent implements OnInit {
 
 			return combinations;
 		}, []);
-	}
-
-	updatedClearedColumns() {
-		this.clearedColumns = _.range(this.initalColumnCount)
-			.filter(column => _.range(column, this.board.length, this.initalColumnCount).every(cellIndex => this.board[cellIndex] === null));
 	}
 
 	private cellsMatch(firstIndex: number, secondIndex: number) {
@@ -105,13 +117,13 @@ export class AppComponent implements OnInit {
 		let historyEntry: HistoryEntry = [];
 
 		cellIndexes.forEach(cellIndex => {
-			historyEntry.push([cellIndex, this.board[cellIndex]]);
+			historyEntry.push([cellIndex, [this.board[cellIndex], null]]);
 			this.board[cellIndex] = null;
 		});
 
-		this.updatedClearedColumns();
-
 		this.history.add(historyEntry);
+		this.board = _.clone(this.board);
+		this.onBoardChanged();
 	}
 
 	private addNumbers(amount: number, sourceNumbers = this.numbers) {
@@ -138,6 +150,14 @@ export class AppComponent implements OnInit {
 			values.push(set.shift());
 			return values;
 		});
-		this.board.push(..._.flatten(numbers));
+
+		let numbersToAdd = _.flatten(numbers);
+		let currentIndex = this.board.length;
+
+		let historyEntry: HistoryEntry = [];
+		numbersToAdd.map((x, index) => historyEntry.push([currentIndex + index, [undefined, x]]));
+
+		this.history.add(historyEntry);
+		this.board.push(...numbersToAdd);
 	}
 }
