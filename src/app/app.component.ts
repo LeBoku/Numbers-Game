@@ -56,7 +56,6 @@ export class AppComponent implements OnInit {
 	onBoardChanged() {
 		this.clearedColumns = _.range(this.initalColumnCount)
 			.filter(column => _.range(column, this.board.length, this.initalColumnCount).every(cellIndex => this.board[cellIndex] === null));
-
 	}
 
 	undo() {

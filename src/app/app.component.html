@@ -3,10 +3,13 @@
 	<button [disabled]="!history.canGoForward" (click)="redo()">Redo</button>
 	<button (click)="showHint()">Hint</button>
 	<button (click)="fill()">Fill</button>
-	<label> {{possibleCombinationsCount}}</label>
 </div>
+
 <div class="board" [style.width.px]="40 * (columnCount - clearedColumns.length) + 2">
 	<div *ngFor="let number of board; let index = index" class="cell" (click)="onCellClick(index)"
 		[class.selected]="index == selectedIndex" [class.cleared]="number === null" [class.hint]="hint.includes(index)"
 		[class.cleared-column]="clearedColumns.includes(index % initalColumnCount)">{{number}}</div>
 </div>
+
+<app-stats-pane [numbers]="numbers" [board]="board" [possibleCombinationsCount]="possibleCombinationsCount">
+</app-stats-pane>

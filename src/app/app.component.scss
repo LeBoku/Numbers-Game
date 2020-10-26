@@ -1,13 +1,18 @@
 :host {
     align-items: center;
-    display: flex;
     flex-direction: column;
     max-height: 90vh;
     overflow: auto;
+    display: grid;
+    grid-template-columns: auto 50px;
+    grid-template-rows: 50px auto;
+    place-items: center;
+
+    grid-template-areas: "header .""board stats";
 }
 
 .header {
-    flex: 0 0 auto;
+    grid-area: header;
     margin-bottom: 5px;
     position: sticky;
     top: 0;
@@ -15,34 +20,45 @@
 }
 
 .board {
+    grid-area: board;
     border: 1px solid lightgray;
     display: flex;
-    flex: 0 0 auto;
     min-height: 0px;
     flex-wrap: wrap;
-    margin: auto;
+
     .cell {
         padding: 10px;
         cursor: pointer;
         text-align: center;
         height: 40px;
         width: 40px;
+
         &.selected {
             background: lightsteelblue;
         }
+
         &.cleared {
             cursor: default;
             pointer-events: none;
             height: 0px;
             padding: 0;
         }
+
         &.cleared-column {
             padding: 0;
             width: 5px;
             flex: 0 0 0px;
         }
+
         &.hint {
             background: lightyellow;
         }
     }
+}
+
+app-stats-pane {
+	grid-area: stats;
+	align-self: start;
+    position: sticky;
+    top: 0;
 }

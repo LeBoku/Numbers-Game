@@ -1,0 +1,26 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat {
+    flex: 0 0 auto;
+
+    &.number-count:nth-child(even) {
+        margin-bottom: 10px;
+    }
+
+    &.cleared {
+        text-decoration: line-through;
+    }
+
+    .label {
+        &:after {
+            content: ': ';
+        }
+    }
+
+    .value {
+        font-weight: bold;
+    }
+}
