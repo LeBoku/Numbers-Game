@@ -3,6 +3,7 @@
 	<button [disabled]="!history.canGoForward" (click)="redo()">Redo</button>
 	<button (click)="showHint()">Hint</button>
 	<button (click)="fill()">Fill</button>
+	<button (click)="restart()">Restart</button>
 </div>
 
 <div class="board" [style.width.px]="40 * (columnCount - clearedColumns.length) + 2">

@@ -27,7 +27,12 @@ export class AppComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.addNumbers(this.initalNumberCount);
+		let previosBoard = JSON.parse(localStorage.getItem('board') || 'null');
+		if (previosBoard) {
+			this.board = previosBoard;
+		} else {
+			this.addNumbers(this.initalNumberCount);
+		}
 	}
 
 	onCellClick(index: number) {
@@ -49,26 +54,36 @@ export class AppComponent implements OnInit {
 		this.addNumbers(numbers.length);
 
 		this.board = _.clone(this.board);
-		this.onBoardChanged();
+		this.handleBoardChange();
+	}
+
+	restart() {
+		if (confirm('Are you sure?')) {
+			this.board = [];
+			this.addNumbers(this.initalNumberCount);
+			this.handleBoardChange();
+		}
 	}
 
 	showHint() {
 		this.hint = _.sample(this.getPossibleCombinations()) ?? [];
 	}
 
-	onBoardChanged() {
+	handleBoardChange() {
 		this.clearedColumns = _.range(this.initalColumnCount)
 			.filter(column => _.range(column, this.board.length, this.initalColumnCount).every(cellIndex => this.board[cellIndex] === null));
+
+		localStorage.setItem('board', JSON.stringify(this.board))
 	}
 
 	undo() {
 		this.board = this.history.undo(this.board);
-		this.onBoardChanged();
+		this.handleBoardChange();
 	}
 
 	redo() {
 		this.board = this.history.redo(this.board);
-		this.onBoardChanged();
+		this.handleBoardChange();
 	}
 
 	private getPossibleCombinations() {
@@ -125,7 +140,7 @@ export class AppComponent implements OnInit {
 
 		this.history.add(historyEntry);
 		this.board = _.clone(this.board);
-		this.onBoardChanged();
+		this.handleBoardChange();
 	}
 
 	private addNumbers(amount: number) {
