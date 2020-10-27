@@ -60,9 +60,18 @@
 }
 
 app-stats-pane {
-	grid-area: stats;
-	align-self: start;
-	justify-self: start;;
+    grid-area: stats;
+    align-self: start;
+    justify-self: start;
+    ;
     position: sticky;
     top: 50px;
+}
+
+.victory-message {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+	text-align: center;
+	padding: 20px;
 }

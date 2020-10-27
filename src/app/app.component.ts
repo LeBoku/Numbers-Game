@@ -9,18 +9,28 @@ import { BoardHistory, HistoryEntry } from './models/history';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-	readonly numbers = _.range(1, 10);
+	readonly numbers = _.without(_.range(1, 10), 5);
 	readonly initalColumnCount = 9;
-	readonly initalNumberCount = 54;
+	readonly initalNumberCount = this.numbers.length * 6;
 
 	columnCount = this.initalColumnCount;
 	history = new BoardHistory();
 
-	board: Board = [];
 	selectedIndex: number = null;
 
 	hint: Array<number> = [];
 	clearedColumns: Array<number> = [];
+	minVisibleColumns: number = 3;
+
+	board: Board = [];
+
+	get numbersCount() {
+		return _.compact(this.board).length;
+	}
+
+	get boardCleared() {
+		return this.numbersCount == 0;
+	}
 
 	get possibleCombinationsCount() {
 		return this.getPossibleCombinations().length;
@@ -28,7 +38,7 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		let previosBoard = JSON.parse(localStorage.getItem('board') || 'null');
-		if (previosBoard) {
+		if (_.compact(previosBoard ?? []).length) {
 			this.board = previosBoard;
 			this.handleBoardChange();
 		} else {
@@ -59,7 +69,7 @@ export class AppComponent implements OnInit {
 	}
 
 	restart() {
-		if (!_.compact(this.board).length || confirm('Are you sure?')) {
+		if (this.boardCleared || confirm('Are you sure?')) {
 			this.board = [];
 			this.clearedColumns = [];
 			this.addNumbers(this.initalNumberCount);
@@ -73,13 +83,14 @@ export class AppComponent implements OnInit {
 
 	handleBoardChange() {
 		this.clearedColumns = _.range(this.initalColumnCount)
-			.filter(column => _.range(column, this.board.length, this.initalColumnCount).every(cellIndex => this.board[cellIndex] === null));
-
-		if (!_.compact(this.board).length) {
-			alert('Congratulations');
-		}
+			.filter(column => _.range(column, this.board.length, this.initalColumnCount).every(cellIndex => this.board[cellIndex] === null))
+			.slice(0, this.initalColumnCount - this.minVisibleColumns);
 
 		localStorage.setItem('board', JSON.stringify(this.board))
+
+		if (this.boardCleared) {
+			setTimeout(() => alert('Congratulations'));
+		}
 	}
 
 	undo() {

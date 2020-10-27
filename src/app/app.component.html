@@ -6,10 +6,15 @@
 	<button (click)="restart()">Restart</button>
 </div>
 
-<div class="board" [style.width.px]="40 * (columnCount - clearedColumns.length) + 2">
+<div class="board" [style.width.px]="boardCleared ? 350 : 40 * (columnCount - clearedColumns.length) + 2">
 	<div *ngFor="let number of board; let index = index" class="cell" (click)="onCellClick(index)"
 		[class.selected]="index == selectedIndex" [class.cleared]="number === null" [class.hint]="hint.includes(index)"
 		[class.cleared-column]="clearedColumns.includes(index % initalColumnCount)">{{number}}</div>
+	<div *ngIf="boardCleared" class="victory-message">
+		<h1>Congratulations</h1>
+		<h2>You won!</h2>
+		<button (click)="restart()">Restart</button>
+	</div>
 </div>
 
 <app-stats-pane [numbers]="numbers" [board]="board" [possibleCombinationsCount]="possibleCombinationsCount">
