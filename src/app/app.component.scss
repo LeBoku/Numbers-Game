@@ -4,11 +4,14 @@
     max-height: 90vh;
     overflow: auto;
     display: grid;
-    grid-template-columns: auto 50px;
+    grid-template-columns: 350px 50px;
     grid-template-rows: 50px auto;
+    grid-column-gap: 10px;
     place-items: center;
-
-    grid-template-areas: "header .""board stats";
+    grid-template-areas:
+        "header ."
+        "board stats";
+    place-content: center;
 }
 
 .header {
@@ -59,6 +62,7 @@
 app-stats-pane {
 	grid-area: stats;
 	align-self: start;
+	justify-self: start;;
     position: sticky;
-    top: 0;
+    top: 50px;
 }

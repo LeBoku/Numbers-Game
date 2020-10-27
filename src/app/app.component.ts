@@ -9,9 +9,9 @@ import { BoardHistory, HistoryEntry } from './models/history';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-	readonly numbers = [..._.range(1, 10), 5];
+	readonly numbers = _.range(1, 10);
 	readonly initalColumnCount = 9;
-	readonly initalNumberCount = 60;
+	readonly initalNumberCount = 54;
 
 	columnCount = this.initalColumnCount;
 	history = new BoardHistory();
@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
 		let previosBoard = JSON.parse(localStorage.getItem('board') || 'null');
 		if (previosBoard) {
 			this.board = previosBoard;
+			this.handleBoardChange();
 		} else {
 			this.addNumbers(this.initalNumberCount);
 		}
@@ -58,8 +59,9 @@ export class AppComponent implements OnInit {
 	}
 
 	restart() {
-		if (confirm('Are you sure?')) {
+		if (!_.compact(this.board).length || confirm('Are you sure?')) {
 			this.board = [];
+			this.clearedColumns = [];
 			this.addNumbers(this.initalNumberCount);
 			this.handleBoardChange();
 		}
@@ -72,6 +74,10 @@ export class AppComponent implements OnInit {
 	handleBoardChange() {
 		this.clearedColumns = _.range(this.initalColumnCount)
 			.filter(column => _.range(column, this.board.length, this.initalColumnCount).every(cellIndex => this.board[cellIndex] === null));
+
+		if (!_.compact(this.board).length) {
+			alert('Congratulations');
+		}
 
 		localStorage.setItem('board', JSON.stringify(this.board))
 	}
@@ -190,7 +196,7 @@ export class AppComponent implements OnInit {
 		let set = _.flatten(_.range(fullSets).map(() => sourceSet));
 		set.push(...
 			_.flatten(
-				_.range(Math.ceil(leftOvers / 2))
+				_.range(Math.floor(leftOvers / 2))
 					.map(() => {
 						let firstNumber = sourceSet.shift();
 						let secondNumber = 10 - firstNumber;
