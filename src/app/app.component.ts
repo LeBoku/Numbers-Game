@@ -9,9 +9,9 @@ import { BoardHistory, HistoryEntry } from './models/history';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-	readonly numbers = _.range(1, 10);
+	readonly numbers = [..._.range(1, 10), 5];
 	readonly initalColumnCount = 9;
-	readonly initalNumberCount = 64;
+	readonly initalNumberCount = 60;
 
 	columnCount = this.initalColumnCount;
 	history = new BoardHistory();
@@ -46,7 +46,10 @@ export class AppComponent implements OnInit {
 
 	fill() {
 		let numbers = _.compact(this.board);
-		this.addNumbers(numbers.length, _.uniq(numbers));
+		this.addNumbers(numbers.length);
+
+		this.board = _.clone(this.board);
+		this.onBoardChanged();
 	}
 
 	showHint() {
@@ -125,38 +128,86 @@ export class AppComponent implements OnInit {
 		this.onBoardChanged();
 	}
 
-	private addNumbers(amount: number, sourceNumbers = this.numbers) {
-		let fullSets = Math.floor(amount / sourceNumbers.length);
-		let leftOvers = Math.floor(amount % sourceNumbers.length);
+	private addNumbers(amount: number) {
+		let sourceNumbers = this.getSourceNumbers();
+		let numbersToAdd = this.getNumbersToAddToKeepEquilibrium(amount, sourceNumbers);
+		numbersToAdd.push(...this.getNumbersToAddBasedOnSet(amount - numbersToAdd.length, sourceNumbers));
 
-		let set = _.flatten(_.range(fullSets).map(() => sourceNumbers));
-		set.push(..._.range(leftOvers).map(() => _.sample(sourceNumbers)));
-		set = _.shuffle(set);
-
-		let currentColumn = this.board.length % this.initalColumnCount;
-		let numbers = _.range(amount).map(() => {
-			let values = [];
-
-			while (this.clearedColumns.includes(currentColumn)) {
-				values.push(null);
-				currentColumn += 1;
-				currentColumn %= this.initalColumnCount;
-			}
-
-			currentColumn += 1;
-			currentColumn %= this.initalColumnCount;
-
-			values.push(set.shift());
-			return values;
-		});
-
-		let numbersToAdd = _.flatten(numbers);
-		let currentIndex = this.board.length;
+		numbersToAdd = _.shuffle(numbersToAdd);
+		numbersToAdd = this.addClearedColumns(numbersToAdd);
 
 		let historyEntry: HistoryEntry = [];
+		let currentIndex = this.board.length;
 		numbersToAdd.map((x, index) => historyEntry.push([currentIndex + index, [undefined, x]]));
 
 		this.history.add(historyEntry);
 		this.board.push(...numbersToAdd);
+	}
+
+	private getSourceNumbers() {
+		return this.numbers.filter(number => {
+			let linkedNumber = 10 - number;
+			return !this.board.length || this.board.filter(x => x == number).length || this.board.filter(x => x == linkedNumber).length
+		})
+	}
+
+	private getNumbersToAddToKeepEquilibrium(amount: number, sourceNumbers = this.numbers) {
+		let toAdd = [];
+		sourceNumbers.forEach(number => {
+			let linkedNumber = 10 - number;
+
+			let numberCount = this.board.filter(x => x === number).length;
+			let linkedCount = this.board.filter(x => x === linkedNumber).length;
+
+			if (linkedCount > numberCount) {
+				toAdd.push(..._.range(0, linkedCount - numberCount).map(() => number))
+			}
+		});
+
+		return toAdd.slice(0, amount);
+	}
+
+	private getNumbersToAddBasedOnSet(amount: number, sourceNumbers = this.numbers) {
+		let sourceSet = _.shuffle(sourceNumbers);
+		let fullSets = Math.floor(amount / sourceNumbers.length);
+		let leftOvers = Math.floor(amount % sourceNumbers.length);
+
+		let set = _.flatten(_.range(fullSets).map(() => sourceSet));
+		set.push(...
+			_.flatten(
+				_.range(Math.ceil(leftOvers / 2))
+					.map(() => {
+						let firstNumber = sourceSet.shift();
+						let secondNumber = 10 - firstNumber;
+						_.pull(sourceSet, secondNumber);
+
+						return [firstNumber, secondNumber];
+					})
+			)
+		);
+
+		return set;
+	}
+
+	private addClearedColumns(set: Array<number>) {
+		let currentColumn = this.board.length % this.initalColumnCount;
+
+		return _.flatten(_.range(set.length)
+			.map(() => {
+				let values = [];
+
+				while (this.clearedColumns.includes(currentColumn)) {
+					values.push(null);
+					currentColumn += 1;
+					currentColumn %= this.initalColumnCount;
+				}
+
+				currentColumn += 1;
+				currentColumn %= this.initalColumnCount;
+
+				values.push(set.shift());
+				return values;
+			})
+		);
 	}
 }

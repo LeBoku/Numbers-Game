@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as _ from 'lodash';
-import { orderBy } from 'lodash';
 import { Board } from '../models/board';
 import { NumberStat } from '../models/stats';
 
@@ -34,7 +33,7 @@ export class StatsPaneComponent implements OnInit, OnChanges {
 	}
 
 	extractStats(board: Board) {
-		this.numbersCount = board.length;
+		this.numbersCount = _.compact(board).length;
 
 		this.numberStats?.forEach(stat => stat.count = board.filter(x => x === stat.forNumber).length);
 		this.numberStats?.forEach(stat => stat.cleared =
