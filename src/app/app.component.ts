@@ -9,7 +9,7 @@ import { BoardHistory, HistoryEntry } from './models/history';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-	readonly numbers = _.without(_.range(1, 10), 5);
+	readonly numbers = _.without(_.range(1, 10));
 	readonly initalColumnCount = 9;
 	readonly initalNumberCount = this.numbers.length * 6;
 
@@ -87,10 +87,6 @@ export class AppComponent implements OnInit {
 			.slice(0, this.initalColumnCount - this.minVisibleColumns);
 
 		localStorage.setItem('board', JSON.stringify(this.board))
-
-		if (this.boardCleared) {
-			setTimeout(() => alert('Congratulations'));
-		}
 	}
 
 	undo() {
@@ -196,7 +192,7 @@ export class AppComponent implements OnInit {
 			}
 		});
 
-		return toAdd.slice(0, amount);
+		return _.shuffle(toAdd).slice(0, amount);
 	}
 
 	private getNumbersToAddBasedOnSet(amount: number, sourceNumbers = this.numbers) {

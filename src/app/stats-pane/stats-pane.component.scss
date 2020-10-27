@@ -6,7 +6,7 @@
 .stat {
     flex: 0 0 auto;
 
-    &.number-count:nth-child(odd) {
+    &.number-count:nth-child(even) {
         margin-bottom: 10px;
     }
 
