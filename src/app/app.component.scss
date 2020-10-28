@@ -1,11 +1,9 @@
 :host {
     align-items: center;
     flex-direction: column;
-    max-height: 90vh;
-    overflow: auto;
     display: grid;
     grid-template-columns: 350px 50px;
-    grid-template-rows: 50px auto;
+    grid-template-rows: 50px max-content;
     grid-column-gap: 10px;
     place-items: center;
     grid-template-areas:
@@ -17,8 +15,9 @@
 .header {
     grid-area: header;
     margin-bottom: 5px;
-    position: sticky;
-    top: 0;
+	position: sticky;
+	top: 5px;
+    padding: 5px;
     background-color: white;
 }
 
@@ -63,7 +62,6 @@ app-stats-pane {
     grid-area: stats;
     align-self: start;
     justify-self: start;
-    ;
     position: sticky;
     top: 50px;
 }
@@ -72,6 +70,6 @@ app-stats-pane {
     display: flex;
     flex-direction: column;
     width: 100%;
-	text-align: center;
-	padding: 20px;
+    text-align: center;
+    padding: 20px;
 }

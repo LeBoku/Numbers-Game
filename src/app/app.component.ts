@@ -185,6 +185,8 @@ export class AppComponent implements OnInit {
 	private getNumbersToAddToKeepEquilibrium(amount: number, sourceNumbers = this.numbers) {
 		let toAdd = [];
 		sourceNumbers.forEach(number => {
+			toAdd.push(number);
+
 			let linkedNumber = 10 - number;
 
 			let numberCount = this.board.filter(x => x === number).length;
