@@ -103,7 +103,7 @@ export class AppComponent implements OnInit {
 	}
 
 	private getPossibleCombinations() {
-		return this.board.reduce((combinations, value, index) => {
+		return _.uniqBy(this.board.reduce((combinations, value, index) => {
 			let nextHorizotal = this.getNextHorizontalCell(index);
 			let nextVertical = this.getNextVerticalCell(index);
 
@@ -116,7 +116,7 @@ export class AppComponent implements OnInit {
 			}
 
 			return combinations;
-		}, []);
+		}, [] as Array<[number, number]>), ([x1, x2]) => `${x1}_${x2}`);
 	}
 
 	private cellsMatch(firstIndex: number, secondIndex: number) {
@@ -161,10 +161,10 @@ export class AppComponent implements OnInit {
 
 	private addNumbers(amount: number) {
 		let sourceNumbers = this.getSourceNumbers();
-		let numbersToAdd = this.getNumbersToAddToKeepEquilibrium(amount, sourceNumbers);
-		numbersToAdd.push(...this.getNumbersToAddBasedOnSet(amount - numbersToAdd.length, sourceNumbers));
+		let numbersToAdd = this.getNumbersToAddToKeepEquilibrium(sourceNumbers);
+		numbersToAdd.push(...(amount - numbersToAdd.length > 0) ? this.getNumbersToAddBasedOnSet(amount - numbersToAdd.length, sourceNumbers) : []);
 
-		numbersToAdd = _.shuffle(numbersToAdd);
+		numbersToAdd = _.shuffle(numbersToAdd).slice(0, amount);
 		numbersToAdd = this.addClearedColumns(numbersToAdd);
 
 		let historyEntry: HistoryEntry = [];
@@ -182,7 +182,7 @@ export class AppComponent implements OnInit {
 		})
 	}
 
-	private getNumbersToAddToKeepEquilibrium(amount: number, sourceNumbers = this.numbers) {
+	private getNumbersToAddToKeepEquilibrium(sourceNumbers = this.numbers) {
 		let toAdd = [];
 		sourceNumbers.forEach(number => {
 			toAdd.push(number);
@@ -197,27 +197,23 @@ export class AppComponent implements OnInit {
 			}
 		});
 
-		return _.shuffle(toAdd).slice(0, amount);
+		return toAdd;
 	}
 
 	private getNumbersToAddBasedOnSet(amount: number, sourceNumbers = this.numbers) {
 		let sourceSet = _.shuffle(sourceNumbers);
 		let fullSets = Math.floor(amount / sourceNumbers.length);
-		let leftOvers = Math.floor(amount % sourceNumbers.length);
+		let leftOvers = amount % sourceNumbers.length;
 
 		let set = _.flatten(_.range(fullSets).map(() => sourceSet));
-		set.push(...
-			_.flatten(
-				_.range(Math.floor(leftOvers / 2))
-					.map(() => {
-						let firstNumber = sourceSet.shift();
-						let secondNumber = 10 - firstNumber;
-						_.pull(sourceSet, secondNumber);
+		set.push(..._.flatten(_.range(leftOvers)
+			.map(() => {
+				let firstNumber = sourceSet.shift();
+				let secondNumber = 10 - firstNumber;
 
-						return [firstNumber, secondNumber];
-					})
-			)
-		);
+				return [firstNumber, secondNumber];
+			})
+		));
 
 		return set;
 	}
