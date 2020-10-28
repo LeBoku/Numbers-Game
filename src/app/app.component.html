@@ -7,7 +7,7 @@
 
 <app-rules></app-rules>
 
-<div class="board" [style.width.px]="boardCleared ? 350 : 40 * (columnCount - clearedColumns.length) + 2">
+<div class="board" [class.cleared]="boardCleared" [style.width.px]="boardCleared ? 350 : 40 * (columnCount - clearedColumns.length)">
 	<div *ngFor="let number of board; let index = index" class="cell" (click)="onCellClick(index)"
 		[class.selected]="index == selectedIndex" [class.cleared]="number === null" [class.hint]="hint.includes(index)"
 		[class.cleared-column]="clearedColumns.includes(index % initalColumnCount)">{{number}}</div>
@@ -20,8 +20,11 @@
 
 <app-stats-pane [numbers]="numbers" [board]="board" [possibleCombinationsCount]="possibleCombinationsCount">
 </app-stats-pane>
-<footer class="button-list">
-	<button (click)="showHint()">Hint ({{possibleCombinationsCount}})</button>
+<footer *ngIf="!boardCleared" class="button-list">
+	<button (click)="showHint()" [disabled]="!possibleCombinationsCount">
+		Hint
+		<ng-container *ngIf="possibleCombinationsCount">({{possibleCombinationsCount | truncateNumber}})</ng-container>
+	</button>
 	<span class="button-group-divider"></span>
-	<button (click)="fill()">Fill</button>
+	<button class="fill-button" (click)="fill()" [class.notify]="!possibleCombinationsCount">Fill</button>
 </footer>

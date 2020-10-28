@@ -9,7 +9,7 @@ import { BoardHistory, HistoryEntry } from './models/history';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-	readonly numbers = _.without(_.range(1, 10));
+	readonly numbers = _.range(1, 10);
 	readonly initalColumnCount = 9;
 	readonly initalNumberCount = this.numbers.length * 6;
 

@@ -1,18 +1,22 @@
+<button class="toggle" (click)="expanded = !expanded">?</button>
+
 <section class="content">
 	<h1>Rules</h1>
-	<p>
-		Your goal is to clear the board by removing numberpairs.<br><br>
-	</p>
-	<h4>Numbers can be removed if</h4>
+
+	<p> Clear the board by removing numberpairs.</p>
+
+	<h4>Numbers can be removed when</h4>
 	<ul>
-		<li>They are equal (e.g 5 & 5)</li>
-		<li>They add up to 10 (e.g 3 & 7 or 1 & 9)</li>
+		<li>They are equal (5 & 5 or 2 & 2)</li>
+		<li>They add up to 10 (3 & 7 or 1 & 9)</li>
 	</ul>
 	<ul>
 		<li>Are in the same column without other numbers between</li>
 		<li>Horizontaly follow each other without other numbers between</li>
 		<li>The end of a horizontal line connects with the start of the next line</li>
 	</ul>
+
+	<p>Use the FILL command to add new numbers when you run out of Combinations</p>
+
 	<button (click)="expanded = false">Close</button>
 </section>
-<button class="toggle" (click)="expanded = !expanded">Rules</button>

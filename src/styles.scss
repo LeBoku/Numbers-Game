@@ -16,6 +16,8 @@ button {
 	border: none;
 	text-decoration: underline;
 	text-transform: uppercase;
+	padding: 5px 16px;
+	cursor: pointer;
 	&+button{
 		border-left: 1px solid;
 	}

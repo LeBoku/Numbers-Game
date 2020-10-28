@@ -4,7 +4,8 @@
     display: flex;
     justify-self: end;
     align-items: start;
-    align-self: start;
+	align-self: start;
+	flex-direction: row-reverse;
     padding: 5px;
 
     &.expanded {
