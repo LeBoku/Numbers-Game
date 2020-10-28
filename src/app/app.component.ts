@@ -24,16 +24,15 @@ export class AppComponent implements OnInit {
 
 	board: Board = [];
 
-	get numbersCount() {
-		return _.compact(this.board).length;
-	}
+	numbersCount: number;
 
 	get boardCleared() {
 		return this.numbersCount == 0;
 	}
 
+	possibleCombinations: Array<Array<number>>;
 	get possibleCombinationsCount() {
-		return this.getPossibleCombinations().length;
+		return this.possibleCombinations.length;
 	}
 
 	ngOnInit() {
@@ -43,6 +42,7 @@ export class AppComponent implements OnInit {
 			this.handleBoardChange();
 		} else {
 			this.addNumbers(this.initalNumberCount);
+			this.handleBoardChange();
 		}
 	}
 
@@ -78,13 +78,16 @@ export class AppComponent implements OnInit {
 	}
 
 	showHint() {
-		this.hint = _.sample(this.getPossibleCombinations()) ?? [];
+		this.hint = _.sample(this.possibleCombinations) ?? [];
 	}
 
 	handleBoardChange() {
 		this.clearedColumns = _.range(this.initalColumnCount)
 			.filter(column => _.range(column, this.board.length, this.initalColumnCount).every(cellIndex => this.board[cellIndex] === null))
 			.slice(0, this.initalColumnCount - this.minVisibleColumns);
+
+		this.numbersCount = _.compact(this.board).length;
+		this.possibleCombinations = this.getPossibleCombinations();
 
 		localStorage.setItem('board', JSON.stringify(this.board))
 	}
