@@ -2,23 +2,31 @@
     align-items: center;
     flex-direction: column;
     display: grid;
-    grid-template-columns: 350px 50px;
-    grid-template-rows: 50px max-content;
+    grid-template-columns: 370px 50px;
+    grid-template-rows: 32px max-content;
     grid-column-gap: 10px;
     place-items: center;
     grid-template-areas:
-        "header ."
+        "header rules"
         "board stats";
     place-content: center;
 }
 
 .header {
     grid-area: header;
-    margin-bottom: 5px;
-	position: sticky;
-	top: 5px;
+    position: sticky;
+    top: 5px;
     padding: 5px;
-    background-color: white;
+	background-color: white;
+	justify-self: stretch;
+	display: flex;
+	button{
+		flex: 0 0 auto;
+	}
+    .button-group-divider {
+        margin-right: 10px;
+        flex: 1;
+    }
 }
 
 .board {
@@ -64,6 +72,11 @@ app-stats-pane {
     justify-self: start;
     position: sticky;
     top: 50px;
+}
+
+app-rules {
+    position: sticky;
+    top: 5px;
 }
 
 .victory-message {

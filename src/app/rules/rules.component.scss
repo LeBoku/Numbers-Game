@@ -1,0 +1,34 @@
+:host {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    justify-self: end;
+    align-items: start;
+    align-self: start;
+    padding: 5px;
+
+    &.expanded {
+        grid-column: 1 / 3;
+        z-index: 2;
+
+        .content {
+            display: flex;
+        }
+    }
+}
+
+.toggle {
+    flex: 0 0 50px;
+}
+
+.content {
+    margin-right: 10px;
+    flex: 1 1 0px;
+    min-width: auto;
+    display: none;
+    border: 1px solid lightgrey;
+    background: white;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 0 3px 2px lightgrey;
+}
