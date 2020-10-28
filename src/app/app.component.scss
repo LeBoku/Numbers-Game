@@ -3,38 +3,42 @@
     flex-direction: column;
     display: grid;
     grid-template-columns: 370px 50px;
-    grid-template-rows: 32px max-content;
+    grid-template-rows: max-content 1fr max-content;
     grid-column-gap: 10px;
     place-items: center;
     grid-template-areas:
         "header rules"
-        "board stats";
-    place-content: center;
+        "board stats"
+        "footer .";
+	place-content: center;
+	min-height: 100%;
 }
 
-.header {
+header {
     grid-area: header;
+
     position: sticky;
-    top: 5px;
-    padding: 5px;
-	background-color: white;
-	justify-self: stretch;
-	display: flex;
-	button{
-		flex: 0 0 auto;
+    top: 0px;
+    border-bottom: 1px solid lightgray;
+}
+
+footer {
+    grid-area: footer;
+    position: sticky;
+	bottom: 0px;
+    border-top: 1px solid lightgray;
+	button {
+		font-size: 1.5em;
+		padding: 5px 20px;
 	}
-    .button-group-divider {
-        margin-right: 10px;
-        flex: 1;
-    }
 }
 
 .board {
     grid-area: board;
-    border: 1px solid lightgray;
     display: flex;
     min-height: 0px;
     flex-wrap: wrap;
+    align-self: start;
 
     .cell {
         padding: 10px;
@@ -76,7 +80,7 @@ app-stats-pane {
 
 app-rules {
     position: sticky;
-    top: 5px;
+    top: 0px;
 }
 
 .victory-message {
@@ -85,4 +89,22 @@ app-rules {
     width: 100%;
     text-align: center;
     padding: 20px;
+}
+
+.button-list {
+    background-color: white;
+    justify-self: stretch;
+    align-self: start;
+    display: flex;
+
+    padding: 5px;
+
+    button {
+        flex: 0 0 auto;
+    }
+
+    .button-group-divider {
+        margin-right: 10px;
+        flex: 1;
+    }
 }

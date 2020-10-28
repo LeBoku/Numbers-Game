@@ -1,12 +1,9 @@
-<div class="header">
+<header class="button-list">
 	<button [disabled]="!history.canGoBack" (click)="undo()">Undo</button>
 	<button [disabled]="!history.canGoForward" (click)="redo()">Redo</button>
 	<span class="button-group-divider"></span>
-	<button (click)="showHint()">Hint</button>
-	<button (click)="fill()">Fill</button>
-	<span class="button-group-divider"></span>
 	<button (click)="restart()">Restart</button>
-</div>
+</header>
 
 <app-rules></app-rules>
 
@@ -23,3 +20,8 @@
 
 <app-stats-pane [numbers]="numbers" [board]="board" [possibleCombinationsCount]="possibleCombinationsCount">
 </app-stats-pane>
+<footer class="button-list">
+	<button (click)="showHint()">Hint ({{possibleCombinationsCount}})</button>
+	<span class="button-group-divider"></span>
+	<button (click)="fill()">Fill</button>
+</footer>

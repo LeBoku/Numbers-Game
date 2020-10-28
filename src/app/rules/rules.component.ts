@@ -5,11 +5,6 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 	templateUrl: './rules.component.html',
 	styleUrls: ['./rules.component.scss']
 })
-export class RulesComponent implements OnInit {
+export class RulesComponent {
 	@HostBinding('class.expanded') expanded = false;
-	constructor() { }
-
-	ngOnInit(): void {
-	}
-
 }
