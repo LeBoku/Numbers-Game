@@ -165,11 +165,29 @@ export class AppComponent implements OnInit {
 		numbersToAdd.push(...(amount - numbersToAdd.length > 0) ? this.getNumbersToAddBasedOnSet(amount - numbersToAdd.length, sourceNumbers) : []);
 
 		numbersToAdd = _.shuffle(numbersToAdd).slice(0, amount);
-		numbersToAdd = this.addClearedColumns(numbersToAdd);
+
+		let clearedRows = _.range(Math.ceil(this.board.length / this.initalColumnCount))
+			.filter(row => _.range(this.initalColumnCount).every(column => !this.board[(row * this.initalColumnCount) + column] ?? true));
+
+		let cellsToFill = _.compact(
+			this.board.map((x, index) => x
+				|| clearedRows.includes(Math.floor(index / this.initalColumnCount))
+				|| this.clearedColumns.includes(index % this.initalColumnCount)
+				? null : index))
 
 		let historyEntry: HistoryEntry = [];
-		let currentIndex = this.board.length;
-		numbersToAdd.map((x, index) => historyEntry.push([currentIndex + index, [undefined, x]]));
+
+		_.shuffle(cellsToFill).slice(0, amount).forEach(index => {
+			let value = numbersToAdd.shift();
+			this.board[index] = value;
+			historyEntry.push([index, [null, value]])
+		});
+
+		if (numbersToAdd.length) {
+			numbersToAdd = this.addClearedColumns(numbersToAdd);
+			let currentIndex = this.board.length;
+			numbersToAdd.map((x, index) => historyEntry.push([currentIndex + index, [undefined, x]]));
+		}
 
 		this.history.add(historyEntry);
 		this.board.push(...numbersToAdd);
@@ -185,8 +203,6 @@ export class AppComponent implements OnInit {
 	private getNumbersToAddToKeepEquilibrium(sourceNumbers = this.numbers) {
 		let toAdd = [];
 		sourceNumbers.forEach(number => {
-			toAdd.push(number);
-
 			let linkedNumber = 10 - number;
 
 			let numberCount = this.board.filter(x => x === number).length;
