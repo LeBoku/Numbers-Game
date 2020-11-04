@@ -210,6 +210,8 @@ export class AppComponent implements OnInit {
 
 			if (linkedCount > numberCount) {
 				toAdd.push(..._.range(0, linkedCount - numberCount).map(() => number))
+			} else if (number === linkedNumber && number % 2 !== 0) {
+				toAdd.push(number);
 			}
 		});
 
