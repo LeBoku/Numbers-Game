@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1610979951868,
+  "timestamp": 1611912625622,
   "index": "/numbers-game/index.html",
   "assetGroups": [
     {
@@ -10,8 +10,8 @@
       "urls": [
         "/numbers-game/favicon.ico",
         "/numbers-game/index.html",
-        "/numbers-game/main-es2015.b38ab6136ef9a0c0dc9e.js",
-        "/numbers-game/main-es5.b38ab6136ef9a0c0dc9e.js",
+        "/numbers-game/main-es2015.0e874f7e61d69ca864d5.js",
+        "/numbers-game/main-es5.0e874f7e61d69ca864d5.js",
         "/numbers-game/manifest.webmanifest",
         "/numbers-game/polyfills-es2015.1f913f16a2d346cc8bdc.js",
         "/numbers-game/polyfills-es5.f1044614286c4864d80f.js",
@@ -49,9 +49,9 @@
     "/numbers-game/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/numbers-game/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/numbers-game/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/numbers-game/index.html": "20a7a8b380db7743d3752e24855963c2579f58e2",
-    "/numbers-game/main-es2015.b38ab6136ef9a0c0dc9e.js": "b63361aae4f22c8a86526bc7ade7c0ffff8a1137",
-    "/numbers-game/main-es5.b38ab6136ef9a0c0dc9e.js": "6ded20dd5e978347020ac74e093df491a475df95",
+    "/numbers-game/index.html": "bceac6d6230f4a4549bf38a7d234b85234bdc419",
+    "/numbers-game/main-es2015.0e874f7e61d69ca864d5.js": "891d28ed6619702148a60297779c9f99f1d5a816",
+    "/numbers-game/main-es5.0e874f7e61d69ca864d5.js": "865eb22feb04414614da575bfb5e7dd717ce9378",
     "/numbers-game/manifest.webmanifest": "592ab5fa485a610d04fd653c4fd1ac6fd40541ae",
     "/numbers-game/polyfills-es2015.1f913f16a2d346cc8bdc.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
     "/numbers-game/polyfills-es5.f1044614286c4864d80f.js": "4c46a59a04fcad729e7b2431f01c09b3d92070c4",
