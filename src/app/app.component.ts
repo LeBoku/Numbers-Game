@@ -164,7 +164,7 @@ export class AppComponent implements OnInit {
 		let numbersToAdd = this.getNumbersToAddToKeepEquilibrium(sourceNumbers);
 		numbersToAdd.push(...(amount - numbersToAdd.length > 0) ? this.getNumbersToAddBasedOnSet(amount - numbersToAdd.length, sourceNumbers) : []);
 
-		numbersToAdd = _.shuffle(numbersToAdd).slice(0, amount);
+		numbersToAdd = _.shuffle(numbersToAdd.slice(0, amount));
 
 		let clearedRows = _.range(Math.ceil(this.board.length / this.initalColumnCount))
 			.filter(row => _.range(this.initalColumnCount).every(column => !this.board[(row * this.initalColumnCount) + column] ?? true));
