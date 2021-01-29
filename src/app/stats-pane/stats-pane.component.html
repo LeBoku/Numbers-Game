@@ -5,7 +5,8 @@
 
 <br>
 
-<label *ngFor="let stat of numberStats" class="stat number-count" [class.cleared]="stat.cleared">
+<label *ngFor="let stat of numberStats" class="stat number-count" [class.cleared]="stat.cleared"
+	(click)="highlight.emit([stat.forNumber, 10-stat.forNumber])">
 	<span class="label">{{stat.forNumber}}</span>
 	<span class="value">{{stat.count}}</span>
 </label>

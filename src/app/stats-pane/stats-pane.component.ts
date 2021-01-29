@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as _ from 'lodash';
 import { Board } from '../models/board';
 import { NumberStat } from '../models/stats';
@@ -12,6 +12,8 @@ export class StatsPaneComponent implements OnInit, OnChanges {
 	@Input() numbers: Array<number>;
 	@Input() board: Board;
 	@Input() possibleCombinationsCount: number;
+
+	@Output() highlight = new EventEmitter<[number, number]>();
 
 	numbersCount = 0;
 	numberStats: Array<NumberStat> = [];
@@ -39,5 +41,9 @@ export class StatsPaneComponent implements OnInit, OnChanges {
 		this.numberStats?.forEach(stat => stat.cleared =
 			stat.count === 0
 			&& this.numberStats.find(x => x.forNumber === stat.linkedWith).count === 0);
+	}
+
+	highlightNumber(number) {
+
 	}
 }

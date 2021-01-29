@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
 	selectedIndex: number = null;
 
 	hint: Array<number> = [];
+	highlighted: Array<number> = [];
 	clearedColumns: Array<number> = [];
 	minVisibleColumns: number = 3;
 
@@ -49,6 +50,7 @@ export class AppComponent implements OnInit {
 	onCellClick(index: number) {
 		if (this.selectedIndex !== null) {
 			this.hint = [];
+			this.highlighted = [];
 			let cells: [number, number] = _.sortBy([this.selectedIndex, index]) as any;
 			if (this.cellsMatch(...cells)) {
 				this.removeCells(cells);
@@ -72,6 +74,8 @@ export class AppComponent implements OnInit {
 		if (this.boardCleared || confirm('Are you sure?')) {
 			this.board = [];
 			this.clearedColumns = [];
+			this.hint = [];
+			this.highlighted = [];
 			this.addNumbers(this.initalNumberCount);
 			this.handleBoardChange();
 		}
@@ -79,6 +83,7 @@ export class AppComponent implements OnInit {
 
 	showHint() {
 		this.hint = _.sample(this.possibleCombinations) ?? [];
+		this.highlighted = [];
 	}
 
 	handleBoardChange() {
