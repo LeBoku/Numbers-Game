@@ -21,7 +21,7 @@
 </div>
 
 <app-stats-pane [numbers]="numbers" [board]="board" [possibleCombinationsCount]="possibleCombinationsCount"
-	(highlight)="highlighted = (highlighted.includes($event[0]) ? [] : $event); hints = []">
+	(highlight)="highlighted = (highlighted.includes($event[0]) ? [] : $event); hint = []">
 </app-stats-pane>
 <footer *ngIf="!boardCleared" class="button-list">
 	<button (click)="showHint()" [disabled]="!possibleCombinationsCount">
